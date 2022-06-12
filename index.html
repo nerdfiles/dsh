@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>structural similarity analysis</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">structural similarity analysis</h1>
+</header>
+<h1 id="well-ordering-and-deep-semantic-hashing">well-ordering and deep semantic hashing</h1>
+<pre><code>For example, consider the following two short texts: “I bought an Apple mouse” and “I bought an apple and a mouse”. These two strings are extremely similar in structure.</code></pre>
+<p>to emphasize this point, let’s look at hamming distances:</p>
+<pre><code>I bought an Apple mouse
+
+$ echo -n &#39;I bought an Apple mouse&#39; | openssl dgst -sha256 | pbcopy 
+30d7bbc8d2dbe6f306cb833b9635a7f535a01069b58163aba5cb1c3dd4221c3a # ...
+
+$ echo -n &#39;He bought an Apple mouse&#39; | openssl dgst -sha256 | pbcopy 
+e3c176b3939dd1266037293b1093d8320a9daa15c54fd72ce56b6ae3e9b8c02c # 59
+
+$ echo -n &#39;She bought an Apple mouse&#39; | openssl dgst -sha256 | pbcopy 
+5d3d6bbdace7336e156f1279b2c20f4908693fc64c41f1a0558836f2195f7afe # 60
+
+ echo -n &#39;We bought an Apple mouse&#39; | openssl dgst -sha256 | pbcopy 
+c9af66c6a1aea977869e84002330e907418aa6b2cf9ce81e2d349ff47eb691e6 # 60
+
+I bought an apple and a mouse
+
+$ echo -n &#39;I bought an apple and a mouse&#39; | openssl dgst -sha256 | pbcopy
+6be41bbfc8203594229a62dc40023e1dc078cb50893ebbde7427645e50b334a8 # 63</code></pre>
+<p>“there are three things”</p>
+<pre><code>The set of even numbers and the set {1,5,17,12} with our usual order on numbers are two more examples of well-ordered sets and you can check this
+
+5 + 7 = 12
+
+{5, 7, +, =, 12, 1, 2, 17, 15, 21, 22, 25, 27, 57, 55, 52, 51, 77, 75, 72, 71, 11, 12, 17, 15, ..., 5555, ..., 777777111111111, ..., 1===1, ..., ++5, ..., ++++++++++++++++++++++++++.....++++++++, ...}
+
+{-[...], -[...], +[...], +[...]}</code></pre>
+<p>maintaining symmetric relation despite the possibility of gödel numbering</p>
+<p>we might ask, e.g., if the qualitative properties of the hashing distance, or semantic distance, taken over a temporal period between two hashes in a public proof-of-work blockchain will tell us anything about the likelihood of the outcome of the hash cracking scheme.</p>
+<pre><code># proof-of-work hash crashing
+...
+
+# 3 min ago (lower similarity in structure)
+0000000000000000000665a9ce7726c84b960de09f84e4be37163163efc7ea50 # ...
+
+# 50 min ago (temporal progression)
+000000000000000000036bbcab6a71f5bb1f3751b91e56f7297ca578458ca375 # 43
+
+# 6 hours ago (higher similarity in structure)
+000000000000000000021b24b4f3268972fc4053bfc5ad90aef73f3d9a873cec # 40</code></pre>
+<p>by <a href="https://en.wikipedia.org/wiki/Law_of_large_numbers">the law of large numbers</a> we should expect that with smaller positive integers we are tracking, we should more likely predict their hash if we know some N quantity of transactions (i.e., assuming we know /any/ order at all). however, by measuring hamming distances (similarity) we know that the more data we have there is a higher ordered value equal to or greater than N. the less we know, the better we can predict.</p>
+<p>fun</p>
+<p>[1]: “The Well-Ordering Theorem: one of the Greatest Mathematical Controversies of All Time”: “Recall that the set of natural numbers with the order &lt; is well-ordered. In general, a set (such as N) with some order (&lt;) is called well-ordered if any nonempty subset has a least element. The set of even numbers and the set {1,5,17,12} with our usual order on numbers are two more examples of well-ordered sets and you can check this. However, the set of integers with our usual ordering on it is not well-ordered, neither is the set of rational numbers, nor the set of all positive rational numbers.”</p>
+</body>
+</html>

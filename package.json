@@ -1,0 +1,14 @@
+{
+  "name": "dsh",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gather": "pbpaste > index.md",
+    "build": "pandoc -H ./header.html --metadata title='structural similarity analysis' index.md > index.html",
+    "publish" : "surge . | sed -e 's/resonant-representative.surge.sh/https:\\/\\/resonant-representative.surge.sh/g' | urlview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

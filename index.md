@@ -56,7 +56,7 @@ we might ask, e.g., if the qualitative properties of the hashing distance, or se
 000000000000000000021b24b4f3268972fc4053bfc5ad90aef73f3d9a873cec # 40
 ```
 
-by [the law of large numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers) we should expect that with smaller positive integers we are tracking, we should more likely predict their hash if we know some N quantity of transactions (i.e., assuming we know /any/ order at all). however, by measuring hamming distances (similarity) we know that the more data we have there is a higher ordered value equal to or greater than N. the less we know, the better we can predict. 
+by [the law of large numbers](https://en.wikipedia.org/wiki/Law_of_large_numbers) we should expect that with smaller positive integers we are tracking, we should more likely predict their hash if we know some N quantity of transactions (i.e., assuming we know /any/ order at all). however, by measuring hamming distances (similarity) we know that the more data we have there is a higher ordered value equal to or greater than N. the less we know what we know, the better we can predictably predict. 
 
 fun
 
